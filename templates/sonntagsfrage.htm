@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html>
     <head></head>
-    <script>
-        function getInsaData() {
-            // var json = require('./data.json');
-            var json = require('data/insa.json');
-            console.log("loaded insa.");
-        }
-    </script>
     <body>
-        <h1>Test2:</h1>
-        <span id="spanId">test-span</span>
-        <script>getInsaData()</script>
+        <h1>Sonntagsfrage-Daten-Test</h1>
+        <table>
+            <thead>
+                <caption>Server-filled table (test)</caption>
+                <tr>
+                    {% for party in parties %}
+                    <td>{{party}}</td>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                <!--todo: for each stuff-->
+                {% for key in keysSorted %}
+                    <tr>
+                        {% for i in range(9) %}
+                            <td>{{ jsonData["values"][key][i] }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </body>
 </html>

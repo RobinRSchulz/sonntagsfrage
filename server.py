@@ -28,15 +28,16 @@ def getValuesSorted(valueMap:map, index:int):
     return values
 
 def getKeysSorted(valueMap:map):
-    return sorted(valueMap["values"].keys(), key=lambda d: '.'.join(reverse(d.split('.'))))
+    return sorted(valueMap["values"].keys(), key=lambda d: '.'.join(reverse(d.split('.'))), reverse=True)
 
 #variables
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return getJsonDataFromFile()
-    # return render_template('sonntagsfrage.htm')
+    #return getJsonDataFromFile()
+    jsonData = getJsonDataFromFile()
+    return render_template('sonntagsfrage.htm', test1="Hallo, test1!", test2="Hallo, test2!", jsonData=jsonData, parties=getParties(jsonData), keysSorted=getKeysSorted(jsonData))
 
 if __name__ == '__main__':
     jsonData = getJsonDataFromFile()

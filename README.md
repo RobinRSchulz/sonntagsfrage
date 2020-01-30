@@ -14,3 +14,4 @@ server) (getData.py)
 
 * template
 * process fetched data in server.py before generating the template.
+  * develop data structure for sorted table data 

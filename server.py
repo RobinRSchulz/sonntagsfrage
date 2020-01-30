@@ -6,7 +6,23 @@ import json
 def getJsonDataFromFile():
     insaFile = open("C:\\Users\\Robin\\Google Drive\\Privat\\IONOS\\Sonntagsfrage-Website\\data\\insa.json")
     jsonData = json.load(insaFile)
-    return jsonData
+    return cleanJsonData(jsonData)
+
+def cleanJsonData(jsonData:map):
+    newJsonData:dict = {}
+    newJsonData["parties"] = jsonData["parties"]
+    newJsonData["values"] = {}
+    for item in jsonData["values"].items():
+        timestamp = item[0]
+        values:list = item[1]
+        newValues:list = []
+        for value in values:
+            # remove % and replace "," by "." ("12,5%"" ==> "12.5")
+            newValues.append(value[:-2].replace(",","."))
+        print(newValues)
+        newJsonData["values"][timestamp] = newValues
+        
+    return newJsonData
 
 def getParties(valueMap:map):
     return valueMap["parties"]

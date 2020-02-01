@@ -76,6 +76,8 @@
             }
         }
 
+        
+
         function getLineData(partyIndex, from=0, to=40) {
             
             //TODO implement
@@ -86,24 +88,40 @@
                 partyList.push(values[timestamp][partyIndex])
             }
             //slice the partylist, too!
-            partyList = partyList.slice();
-            console.log(partyList)
-            
+            partyList = partyList.slice(from,to);
+
+            partyList_ = [];
+            for (timestamp in values) {
+                partyList_.push(values[timestamp][0])
+            }
+            //slice the partylist, too!
+            partyList_ = partyList_.slice(from,to);            
             
             return {
                 labels: keys,
                 //labels: ["a", "b", "c", "d", "e"],
-                datasets : [{
-                    fillColor: "rgba(151,187,205,0.2)",
-                    strokeColor: "rgba(151,187,205,1)",
-                    pointColor: "rgba(151,187,205,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(151,187,205,1)",
-                    bezierCurve : false,
-                    data: partyList
-                    //data: [20,19,18,17,16]
-                }]
+                datasets : [
+                    {
+                        fillColor: "rgba(151,187,205,0.2)",
+                        strokeColor: "rgba(151,187,205,1)",
+                        pointColor: "rgba(151,187,205,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(151,187,205,1)",
+                        bezierCurve : false,
+                        data: partyList
+                    },
+                    {
+                        fillColor: "rgba(151,150,205,0.2)",
+                        strokeColor: "rgba(151,150,205,1)",
+                        pointColor: "rgba(151,150,205,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(151,150,205,1)",
+                        bezierCurve : false,
+                        data: partyList_
+                    }
+                ]
             }
         }
 

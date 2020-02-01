@@ -6,7 +6,8 @@
     <body>
         <h1>Sonntagsfrage-Daten-Test</h1>
         <h2>Current Data:</h2>
-        <canvas id="chart" width="600" height="400"></canvas>
+        <canvas id="barChart" width="600" height="400"></canvas>
+        <canvas id="lineChart" width="600" height="400"></canvas>
         <table>
             <thead>
                 <caption>Server-filled table (test)</caption>
@@ -29,42 +30,133 @@
         </table>
     </body>
     <script>
-        var barData = {
-            labels: [
+
+
+        var jsonDataJs = {
+            parties: [
                 {% for party in parties %}
-                "{{ party}}",
+                    "{{ party}}",
                 {% endfor %}
             ],
-
-            datasets : [{
-                fillColor: "rgba(151,187,205,0.2)",
-                strokeColor: "rgba(151,187,205,1)",
-                pointColor: "rgba(151,187,205,1)",
-                data: [
-                {% for i in range(9) %}
-                    "{{ jsonData["values"][keysSorted[0]][i] }}",
+            values: {
+                {% for key in keysSorted %}
+                    "{{ key }}": [
+                        {% for value in jsonData["values"][key] %}
+                            {{ value}},
+                        {% endfor %}
+                    ],
                 {% endfor %}
-
-                ]
-            }]
+                //key1:["12.5", "4.6"],
+                //key2:["1.1",],
+            }
         };
+        var keysSortedJs = [
+            {% for key in keysSorted %}
+                "{{ key }}",
+            {% endfor %}
+        ];
+        
+        function getBarDataFromIndex(index) {
+            return getBarDataFromTimestamp(keysSortedJs[index])
+        }
 
-        var mychart = document.getElementById("chart").getContext("2d");
+        function getBarDataFromTimestamp(timestamp) {
+            return {
+                labels: [
+                    {% for party in parties %}
+                        "{{ party}}",
+                    {% endfor %}
+                ],
+                datasets : [{
+                    fillColor: "rgba(151,187,205,0.2)",
+                    strokeColor: "rgba(151,187,205,1)",
+                    pointColor: "rgba(151,187,205,1)",
+                    data: jsonDataJs["values"][timestamp]
+                }]
+            }
+        }
 
-        steps = 10
-        max = {{40}}
+        function getLineData(partyIndex, from=0, to=40) {
+            
+            //TODO implement
+            values = jsonDataJs["values"];
+            keys = Object.keys(jsonDataJs["values"]).slice(from,to);
+            partyList = [];
+            for (timestamp in values) {
+                partyList.push(values[timestamp][partyIndex])
+            }
+            //slice the partylist, too!
+            partyList = partyList.slice();
+            console.log(partyList)
+            
+            
+            return {
+                labels: keys,
+                //labels: ["a", "b", "c", "d", "e"],
+                datasets : [{
+                    fillColor: "rgba(151,187,205,0.2)",
+                    strokeColor: "rgba(151,187,205,1)",
+                    pointColor: "rgba(151,187,205,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(151,187,205,1)",
+                    bezierCurve : false,
+                    data: partyList
+                    //data: [20,19,18,17,16]
+                }]
+            }
+        }
 
-        new Chart(mychart).Bar(barData, {
-            scaleOverride: true,
-            scaleSteps: steps,
-            scaleStepWidth: Math.ceil(max / steps),
-            scaleStartValue: 0,
-            scaleShowVerticalLines: true,
-            scaleShowGridLines : true,
-            barShowStroke : true,
-            scaleShowLabels: true
-        });
+        function setupBarChart(index) {
+            mychart = document.getElementById("barChart").getContext("2d");
 
+            steps = 10
+            max = {{40}}
+
+            new Chart(mychart).Bar(getBarDataFromIndex(index), {
+                scaleOverride: true,
+                scaleSteps: steps,
+                scaleStepWidth: Math.ceil(max / steps),
+                scaleStartValue: 0,
+                scaleShowVerticalLines: true,
+                scaleShowGridLines : true,
+                barShowStroke : true,
+                scaleShowLabels: true
+            });
+        }
+
+        function setupLineChart(partyIndex) {
+            Chart.defaults.global.animationSteps = 50;
+            Chart.defaults.global.tooltipYPadding = 16;
+            Chart.defaults.global.tooltipCornerRadius = 0;
+            Chart.defaults.global.tooltipTitleFontStyle = "normal";
+            Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+            Chart.defaults.global.animationEasing = "easeOutBounce";
+            Chart.defaults.global.responsive = false;
+            Chart.defaults.global.scaleLineColor = "black";
+            Chart.defaults.global.scaleFontSize = 16;
+
+            mychart = document.getElementById("lineChart").getContext("2d");
+
+            steps = 10
+            max = {{40}}
+
+            var LineChartDemo = new Chart(mychart).Line(getLineData(partyIndex), {
+                scaleOverride: true,
+                scaleSteps: steps,
+                scaleStepWidth: Math.ceil(max / steps),
+                scaleStartValue: 0,
+                scaleShowVerticalLines: true,
+                scaleShowGridLines : true,
+                barShowStroke : true,
+                scaleShowLabels: true,
+                bezierCurve: false,
+            });
+        }
+
+        //init stuff ("main")
+        setupBarChart(0);
+        setupLineChart(2)
 
 
     </script>

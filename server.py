@@ -17,12 +17,20 @@ def cleanJsonData(jsonData:map):
         values:list = item[1]
         newValues:list = []
         for value in values:
-            # remove % and replace "," by "." ("12,5%"" ==> "12.5")
-            newValues.append(value[:-2].replace(",","."))
-        print(newValues)
+            # remove % and replace "," by "." ("12,5%" ==> "12.5")
+            newValues.append(percentageStrToInt(value))
+        #print(newValues)
         newJsonData["values"][timestamp] = newValues
         
     return newJsonData
+
+def percentageStrToInt(s:str):
+    s = s[:-2].replace(",",".")
+    try:
+        return float(s)
+    except:
+        return float(0)
+    
 
 def getParties(valueMap:map):
     return valueMap["parties"]

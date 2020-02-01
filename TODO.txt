@@ -1,2 +1,0 @@
-1. setup python (flask?) or node.js server serving sonntagsfrage.htm
-2. manipulate the html before sending it

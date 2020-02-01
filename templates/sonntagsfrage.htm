@@ -2,6 +2,8 @@
 <html>
     <head>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+        <!--TODO refactor to use the above version (for colors and new-is-always-better)-->
+        <!--script src='https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js'></script--> 
     </head>
     <body>
         <h1>Sonntagsfrage-Daten-Test</h1>
@@ -60,6 +62,45 @@
             return getBarDataFromTimestamp(keysSortedJs[index])
         }
 
+        function getColorsFromParties(partyList) {
+            colorList = []
+            for (party in partyList) {
+                switch(partyList[party]) {
+                    case "CDU/CSU":
+                        colorList.push("black");
+                        break;
+                    case "GRÜNE":
+                        colorList.push("green");
+                        break;
+                    case "SPD":
+                        colorList.push("red");
+                        break;
+                    case "FDP":
+                        colorList.push("yellow");
+                        break;
+                    case "LINKE":
+                        colorList.push("pink");
+                        break;
+                    case "PIRATEN":
+                        colorList.push("orange");
+                        break;
+                    case "FW":
+                        colorList.push("yellow");
+                        break;
+                    case "AfD":
+                        colorList.push("blue");
+                        break;
+                    case "Sonstige":
+                        colorList.push("grey");
+                        break;
+                    default:
+                        colorList.push("grey");
+                        break;
+                }
+            }
+            return colorList;
+        }
+
         function getBarDataFromTimestamp(timestamp) {
             return {
                 labels: [
@@ -71,6 +112,7 @@
                     fillColor: "rgba(151,187,205,0.2)",
                     strokeColor: "rgba(151,187,205,1)",
                     pointColor: "rgba(151,187,205,1)",
+                    backgroundColor:getColorsFromParties(jsonDataJs["parties"]),
                     data: jsonDataJs["values"][timestamp]
                 }]
             }

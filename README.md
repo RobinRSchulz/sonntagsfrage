@@ -15,7 +15,7 @@ server) (getData.py)
 * template
 * process fetched data in server.py before generating the template.
   * develop data structure for sorted table data 
-
+* use Chart.js 2.9.3 instead of 1.0.2 for colored bars
 ## debug
 
 * execute getData once

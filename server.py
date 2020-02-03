@@ -3,8 +3,8 @@ import json
 
 
 #methods
-def getJsonDataFromFile():
-    insaFile = open("C:\\Users\\Robin\\Google Drive\\Privat\\IONOS\\Sonntagsfrage-Website\\data\\insa.json")
+def getJsonDataFromFile(institue_id:str):
+    insaFile = open("C:\\Users\\Robin\\Google Drive\\Privat\\IONOS\\Sonntagsfrage-Website\\data\\" + institue_id + ".json")
     jsonData = json.load(insaFile)
     return cleanJsonData(jsonData)
 
@@ -60,11 +60,16 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     #return getJsonDataFromFile()
-    jsonData = getJsonDataFromFile()
+    jsonData = getJsonDataFromFile("insa")
+    return render_template('index.htm', test1="Hallo, test1!", test2="Hallo, test2!", )
+
+@app.route('/institute/<institute_id>')
+def institute(institute_id):
+    jsonData = getJsonDataFromFile(institute_id)
     return render_template('sonntagsfrage.htm', test1="Hallo, test1!", test2="Hallo, test2!", jsonData=jsonData, parties=getParties(jsonData), keysSorted=getKeysSorted(jsonData))
 
 if __name__ == '__main__':
-    jsonData = getJsonDataFromFile()
+    jsonData = getJsonDataFromFile("insa")
     print(getParties(jsonData))
     print(getValuesSorted(jsonData, 3))
     app.run(debug=True)

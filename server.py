@@ -66,7 +66,7 @@ def index():
 @app.route('/institute/<institute_id>')
 def institute(institute_id):
     jsonData = getJsonDataFromFile(institute_id)
-    return render_template('sonntagsfrage.htm', test1="Hallo, test1!", test2="Hallo, test2!", jsonData=jsonData, parties=getParties(jsonData), keysSorted=getKeysSorted(jsonData))
+    return render_template('sonntagsfrage.htm', test1="Hallo, test1!", test2="Hallo, test2!", jsonData=jsonData, parties=getParties(jsonData), keysSorted=getKeysSorted(jsonData), instituteId=institute_id)
 
 if __name__ == '__main__':
     jsonData = getJsonDataFromFile("insa")

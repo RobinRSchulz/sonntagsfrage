@@ -1,44 +1,49 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script> -->
-        <!--TODO refactor to use the above version (for colors and new-is-always-better)-->
         <script src='https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js'></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css') }}">
     </head>
     <body>
-        <h1>Sonntagsfrage-Daten-Test</h1>
-        <h2>Current Data:</h2>
+        <h1>Sonntagsfrage: {{instituteId}}</h1>
         <div>
-            <div style="float:left; width:50%">
-                <canvas id="barChart"></canvas>
-            </div>
-            <div style="float:left; width:50%">
-                <canvas id="lineChart"></canvas>
-            </div>
-        </div>
-        
-        <div>
-            <table>
-                <thead>
-                    <caption>Server-filled table (test)</caption>
-                    <tr>
-                        {% for party in parties %}
-                        <td>{{party}}</td>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    <!--todo: for each stuff-->
-                    {% for key in keysSorted %}
+            <div style="float:left; width:50%;">
+                <table class="pollDataTable">
+                    <thead>
+                        <caption>Umfrageergebnisse</caption>
                         <tr>
-                            {% for i in range(9) %}
-                                <td>{{ jsonData["values"][key][i] }}</td>
+                            <th style="font-weight:bold;">Datum</th>
+                            {% for party in parties %}
+                            <th>{{party}}</th>
                             {% endfor %}
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <!--todo: for each stuff-->
+                        {% for key in keysSorted %}
+                            <tr>
+                                <td style="padding-left:30px; padding-right:30px; font-weight:bold">{{key}}</td>
+                                {% for i in range(9) %}
+                                    <td>{{ jsonData["values"][key][i] }}</td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table class="pollDataTable">
+            </div>
+            <div style="float:left; width:50%" class="chartWrapper">
+                <div>
+                    <canvas id="barChart"></canvas>
+                </div>
+                <div style="padding-top:50px"></div>
+                <div>
+                    <canvas id="lineChart"></canvas>
+                </div>
+            </div>
+            
         </div>
+        
+        
         
     </body>
     <script>

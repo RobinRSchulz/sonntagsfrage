@@ -74,13 +74,15 @@ def main():
     data['insa'] = getTableFromWahlrechtSubPage('https://www.wahlrecht.de/umfragen/insa.htm')
     data['yougov'] = getTableFromWahlrechtSubPage('https://www.wahlrecht.de/umfragen/yougov.htm')
     
-    dir:str = os.path.dirname(os.path.abspath(__file__)) + '\\data\\'
+    dir:str = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
+
     try:
         os.stat(dir)
     except:
         os.mkdir(dir) 
     for datum in data.items():
-        fileName = dir + str(datum[0]) + '.json'
+        fileName = os.path.join(dir, str(datum[0], '.json'))
+        #fileName = dir + str(datum[0]) + '.json'
         with open(fileName, 'w') as fp:
             json.dump(datum[1], fp)
         print("stored " + fileName + ".")

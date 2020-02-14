@@ -28,13 +28,13 @@ def setupDataGettingEvent():
 
 #methods
 def getJsonDataFromFile(institue_id:str):
-    insaFile = open(getDataLocation() + institue_id + ".json")
+    insaFile = open(os.path.join(getDataLocation(), institue_id, ".json"))
 
     jsonData = json.load(insaFile)
     return cleanJsonData(jsonData)
 
 def getDataLocation():
-    return os.path.dirname(os.path.abspath(__file__)) + '\\data\\'
+    return os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
 
 def cleanJsonData(jsonData:map):
     newJsonData:dict = {}

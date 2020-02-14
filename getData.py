@@ -81,7 +81,7 @@ def main():
     except:
         os.mkdir(dir) 
     for datum in data.items():
-        fileName = os.path.join(dir, str(datum[0]), '.json')
+        fileName = os.path.join(dir, str(datum[0]) + '.json')
         #fileName = dir + str(datum[0]) + '.json'
         with open(fileName, 'w') as fp:
             json.dump(datum[1], fp)

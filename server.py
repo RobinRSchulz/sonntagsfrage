@@ -1,5 +1,23 @@
 from flask import Flask, render_template
-import json, os
+import json, os, sched, time
+import getData
+
+
+# data stuff todo:
+datagettingScheduler = sched.scheduler(time.time, time.sleep)
+
+def dataGettingEvent(sc):
+    print("Fetching data")
+    getData.main()
+
+    #re-setup scheduler
+    # todo set this way higher
+    datagettingScheduler.enter(180, 1, dataGettingEvent, (sc,))
+
+def setupDataGettingEvent():
+    datagettingScheduler.enter(60, 1, dataGettingEvent, (datagettingScheduler,))
+    datagettingScheduler.run()
+    
 
 
 #methods
@@ -73,8 +91,9 @@ def institute(institute_id):
     return render_template('sonntagsfrage.htm', test1="Hallo, test1!", test2="Hallo, test2!", jsonData=jsonData, parties=getParties(jsonData), keysSorted=getKeysSorted(jsonData), instituteId=institute_id)
 
 if __name__ == '__main__':
-    jsonData = getJsonDataFromFile("insa")
+    #jsonData = getJsonDataFromFile("insa")
     #print(getParties(jsonData))
     #print(getValuesSorted(jsonData, 3))
+    setupDataGettingEvent()
     print('Starting server.')
     app.run(host="0.0.0.0", port=int("8080"), debug=True)

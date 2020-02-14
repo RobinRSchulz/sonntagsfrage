@@ -3,8 +3,7 @@ FROM ubuntu:18.04
 # -y = always yes
 RUN apt-get update -y && \
     apt-get install -y python3 && \
-    apt-get install -y python3-pip python3-dev && \
-    apt-get install -y cron
+    apt-get install -y python3-pip python3-dev
 
 WORKDIR /app
 
@@ -21,13 +20,10 @@ COPY setupCronjob.sh .
 
 #debug
 RUN ls -R
-RUN tail /app/setupCronjob.sh
 
 #make sure some data is present 
-RUN python3 getData.py && \
-    chmod +x setupCronjob.sh && \
-    . /app/setupCronjob.sh
+RUN python3 getData.py
 
-ENTRYPOINT cron && python3
+ENTRYPOINT [ "python3" ]
 # todo start cron job (or whatever): getData.py
 CMD [ "server.py" ]

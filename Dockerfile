@@ -20,12 +20,12 @@ COPY setupCronjob.sh .
 
 #debug
 RUN ls -R
-RUN tail setupCronjob.sh
+RUN tail /app/setupCronjob.sh
 
 #make sure some data is present 
 RUN python3 getData.py && \
     chmod +x setupCronjob.sh && \
-    . setupCronjob.sh
+    . /app/setupCronjob.sh
 
 ENTRYPOINT [ "python3" ]
 # todo start cron job (or whatever): getData.py

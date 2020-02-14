@@ -70,6 +70,7 @@ def institute(institute_id):
 
 if __name__ == '__main__':
     jsonData = getJsonDataFromFile("insa")
-    print(getParties(jsonData))
-    print(getValuesSorted(jsonData, 3))
+    #print(getParties(jsonData))
+    #print(getValuesSorted(jsonData, 3))
+    print('Starting server.')
     app.run(debug=True)

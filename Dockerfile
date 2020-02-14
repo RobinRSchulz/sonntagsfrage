@@ -23,7 +23,7 @@ RUN ls -R
 
 #make sure some data is present 
 RUN python3 getData.py && \
-    setupCronjob.sh
+    . setupCronjob.sh
 
 ENTRYPOINT [ "python3" ]
 # todo start cron job (or whatever): getData.py

@@ -1,12 +1,16 @@
 from flask import Flask, render_template
-import json
+import json, os
 
 
 #methods
 def getJsonDataFromFile(institue_id:str):
-    insaFile = open("C:\\Users\\Robin\\Google Drive\\Privat\\IONOS\\Sonntagsfrage-Website\\data\\" + institue_id + ".json")
+    insaFile = open(getDataLocation() + institue_id + ".json")
+
     jsonData = json.load(insaFile)
     return cleanJsonData(jsonData)
+
+def getDataLocation():
+    return os.path.dirname(os.path.abspath(__file__)) + '\\data\\'
 
 def cleanJsonData(jsonData:map):
     newJsonData:dict = {}

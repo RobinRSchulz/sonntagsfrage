@@ -74,7 +74,7 @@ def main():
     data['insa'] = getTableFromWahlrechtSubPage('https://www.wahlrecht.de/umfragen/insa.htm')
     data['yougov'] = getTableFromWahlrechtSubPage('https://www.wahlrecht.de/umfragen/yougov.htm')
     
-    dir:str = "C:\\Users\\Robin\\Google Drive\\Privat\\IONOS\\Sonntagsfrage-Website\\data\\"
+    dir:str = os.path.dirname(os.path.abspath(__file__)) + '\\data\\'
     try:
         os.stat(dir)
     except:

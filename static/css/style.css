@@ -22,6 +22,7 @@ h1 {
     color:white;
     border-collapse:collapse;
     text-align: center;
+    width:100%
 }
 
 table.pollDataTable caption {

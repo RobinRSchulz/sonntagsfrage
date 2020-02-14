@@ -73,4 +73,4 @@ if __name__ == '__main__':
     #print(getParties(jsonData))
     #print(getValuesSorted(jsonData, 3))
     print('Starting server.')
-    app.run(debug=True)
+    app.run(host="82.165.123.196", port=int("8080"), debug=True)

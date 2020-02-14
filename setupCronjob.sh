@@ -1,0 +1,1 @@
+crontab -l | { cat; echo "5 * * * * python3 /app/getData.py > getDataCron.log"; } | crontab -

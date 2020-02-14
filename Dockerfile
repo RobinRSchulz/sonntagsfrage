@@ -23,6 +23,7 @@ RUN ls -R
 
 #make sure some data is present 
 RUN python3 getData.py && \
+    chmod +x setupCronjob.sh && \
     . setupCronjob.sh
 
 ENTRYPOINT [ "python3" ]

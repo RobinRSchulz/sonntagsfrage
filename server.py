@@ -28,7 +28,7 @@ def setupDataGettingEvent():
 
 #methods
 def getJsonDataFromFile(institue_id:str):
-    insaFile = open(os.path.join(getDataLocation(), institue_id, ".json"))
+    insaFile = open(os.path.join(getDataLocation(), institue_id + ".json"))
 
     jsonData = json.load(insaFile)
     return cleanJsonData(jsonData)

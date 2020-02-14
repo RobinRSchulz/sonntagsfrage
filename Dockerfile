@@ -16,7 +16,6 @@ COPY server.py .
 COPY getData.py .
 COPY static/ static
 COPY templates/ templates
-COPY setupCronjob.sh .
 
 #debug
 RUN ls -R

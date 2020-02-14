@@ -16,8 +16,17 @@ server) (getData.py)
 * process fetched data in server.py before generating the template.
   * develop data structure for sorted table data 
 * use Chart.js 2.9.3 instead of 1.0.2 for colored bars
+
 ## debug
 
 * execute getData once
 * start server.py
 * alter template if necessary
+
+## docker useful commands
+
+* **building the image: ** docker build -t sonntagsfrage .
+* **running the image: ** docker run -d -p 8080:8080 sonntagsfrage:latest
+* **stopping the image: ** docker stop ...
+* **overview image registry: ** docker images
+* **overview running images: ** docker ps

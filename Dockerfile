@@ -16,6 +16,7 @@ COPY server.py .
 COPY getData.py .
 COPY static/ static
 COPY templates/ templates
+COPY setupCronjob.sh .
 
 #make sure some data is present 
 RUN python3 getData.py && \

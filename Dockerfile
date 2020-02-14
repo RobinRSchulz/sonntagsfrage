@@ -7,7 +7,8 @@ RUN apt-get update -y && \
 WORKDIR /app
 
 #copying server.py and getData.py
-COPY ../*.py .
+COPY ../server.py .
+COPY ../getData.py .
 COPY ../static/ .
 COPY ../templates/ .
 

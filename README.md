@@ -16,6 +16,9 @@ server) (getData.py)
 * process fetched data in server.py before generating the template.
   * develop data structure for sorted table data 
 * use Chart.js 2.9.3 instead of 1.0.2 for colored bars
+* default port mapping
+* many things in single institute view...
+* cron job
 
 ## debug
 
@@ -30,3 +33,8 @@ server) (getData.py)
 * **stopping the image: ** docker stop ...
 * **overview image registry: ** docker images
 * **overview running images: ** docker ps
+
+## update server
+1. git pull
+2. rebuild image
+3. re-run sonntagsfrage:latest

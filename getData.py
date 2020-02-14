@@ -7,7 +7,7 @@ except ImportError:
 
 def getTableFromWahlrechtSubPage(url:str):
     request = requests.get(url)
-    parsed_html = BeautifulSoup(request.content)
+    parsed_html = BeautifulSoup(request.content, features="html.parser")
     table = parsed_html.body.find('table', attrs={'class':'wilko'})
     table_head = table.find('thead')
     table_body = table.find('tbody')

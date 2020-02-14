@@ -14,7 +14,7 @@ def getTableFromWahlrechtSubPage(url:str):
     
     #works
     parties_list = getPartiesFromTableHead(table_head)
-    print(str(parties_list))
+    print(str(parties_list).encode('utf-8'))
 
     parsed_table:map = {}
     for table_row in table_body.find_all('tr'):

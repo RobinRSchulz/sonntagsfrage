@@ -3,7 +3,8 @@ FROM ubuntu:18.04
 # -y = always yes
 RUN apt-get update -y && \
     apt-get install -y python3 && \
-    apt-get install -y python3-pip python3-dev
+    apt-get install -y python3-pip python3-dev && \
+    apt-get install -y tree
 
 WORKDIR /app
 

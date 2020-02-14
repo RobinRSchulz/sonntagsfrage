@@ -1,10 +1,11 @@
 from flask import Flask, render_template
-import json, os, sched, time
+import json, os, sched, time, threading
 import getData
 
 
 # data stuff todo:
 datagettingScheduler = sched.scheduler(time.time, time.sleep)
+dataGettingThread = None
 
 def dataGettingEvent(sc):
     print("Fetching data")
@@ -14,9 +15,14 @@ def dataGettingEvent(sc):
     # todo set this way higher
     datagettingScheduler.enter(180, 1, dataGettingEvent, (sc,))
 
-def setupDataGettingEvent():
+def dataGettingThreadEntry():
     datagettingScheduler.enter(60, 1, dataGettingEvent, (datagettingScheduler,))
     datagettingScheduler.run()
+
+def setupDataGettingEvent():
+    dataGettingThread = threading.Thread(target=dataGettingThreadEntry)
+    dataGettingThread.start()
+    
     
 
 
@@ -94,6 +100,7 @@ if __name__ == '__main__':
     #jsonData = getJsonDataFromFile("insa")
     #print(getParties(jsonData))
     #print(getValuesSorted(jsonData, 3))
+    print('Setting up data getting event')
     setupDataGettingEvent()
     print('Starting server.')
     app.run(host="0.0.0.0", port=int("8080"), debug=True)

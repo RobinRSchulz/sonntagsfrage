@@ -20,6 +20,7 @@ COPY setupCronjob.sh .
 
 #debug
 RUN ls -R
+RUN tail setupCronjob.sh
 
 #make sure some data is present 
 RUN python3 getData.py && \
